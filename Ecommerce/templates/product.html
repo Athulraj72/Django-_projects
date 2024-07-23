@@ -1,0 +1,80 @@
+
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+   <!-- header section end -->
+         <!-- banner section start -->
+
+         <div class="banner_section layout_padding">
+            <div class="container">
+               <div id="my_slider" class="carousel slide" data-ride="carousel">
+                  <div class="carousel-inner">
+                     <div class="carousel-item active">
+                        <div class="row">
+                           <div class="col-sm-12">
+                              <h1 class="banner_taital">Get Start <br>Your favriot shoping</h1>
+                              <div class="buynow_bt"><a href="#">Buy Now</a></div>
+                           </div>
+                        </div>
+                     </div>
+                     <div class="carousel-item">
+                        <div class="row">
+                           <div class="col-sm-12">
+                              <h1 class="banner_taital">Get Start <br>Your favriot shoping</h1>
+                              <div class="buynow_bt"><a href="#">Buy Now</a></div>
+                           </div>
+                        </div>
+                     </div>
+                     <div class="carousel-item">
+                        <div class="row">
+                           <div class="col-sm-12">
+                              <h1 class="banner_taital">Get Start <br>Your favriot shoping</h1>
+                              <div class="buynow_bt"><a href="#">Buy Now</a></div>
+                           </div>
+                        </div>
+                     </div>
+                  </div>
+                  <a class="carousel-control-prev" href="#my_slider" role="button" data-slide="prev">
+                  <i class="fa fa-angle-left"></i>
+                  </a>
+                  <a class="carousel-control-next" href="#my_slider" role="button" data-slide="next">
+                  <i class="fa fa-angle-right"></i>
+                  </a>
+               </div>
+            </div>
+         </div>
+         <!-- banner section end -->
+           <div class="row">
+              {% for i in p %}
+              <div class="col-lg-3 col-sm-3" >
+                 <div class="box_main">
+                    <h4 class="shirt_text">{{i.name}}</h4>
+                    <p class="price_text">{{i.price}}  <span style="color: #262626;"></span></p>
+                    <p class="price_text">{{i.stock}}  <span style="color: #262626;"></span></p>
+                    <div class="tshirt_img "><a href="{% url 'shop:details' i.id %}"> <img src={{i.image.url}} ></a></div>
+
+
+                    {% if user.is_superuser == True %}
+                    {% if product.stock > 0 %}
+                    <div class="btn_main">
+                       <div class="buy_bt"><a href="{% url 'admin:index'  %}">Add stock</a></div>
+                       </div>
+				{% else %}
+					<div class="btn_main">
+                       <div class="buy_bt"><a href="{% url 'admin:index' %}">Add stock</a></div>
+                       </div>
+				{% endif %}
+                    {% else %}
+                    <div class="btn_main">
+                       <div class="buy_bt"><a href="#">Buy Now</a></div>
+                       <div class="buy_bt"><a href="{% url 'cart:add_to_cart' i.id %}">Add to cart</a></div>
+                       </div>
+                    {% endif %}
+                 </div>
+              </div>
+              {% endfor %}
+           </div>
+
+
+
+{% endblock %}

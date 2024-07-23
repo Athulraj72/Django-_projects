@@ -1,0 +1,62 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<div class="row">
+		<div class="col-7">
+			<div class="container mt-5 pt-5">
+				<table class="table table-bordered" style="background-color:white;">
+					<tr>
+						<th>Cart Items</th>
+					</tr>
+					{% for i in cart %}
+					<tr>
+						<td><a href="{% url 'shop:product' i.product.id %}"><img src="{{i.product.image.url}}" height="200px" width="200px"></a></td>
+						<td>{{i.product.name}}</td>
+						<td>{{i.product.id}}</td>
+						<td>Quantity: {{i.quantity}}<br>Unit Price: {{i.product.price}}</td>
+						<td>Subtotal: {{i.subtotal}}</td>
+
+						<td>
+							{% if i.product.stock > 0 %}
+								<a href="{% url 'cart:add_to_cart' i.product.id %}"><i class="fa-solid fa-circle-plus" style="color:black"></i></a> <br>
+								<a href="{% url 'cart:cart_decrement' i.product.id %}"><i class="fa-solid fa-circle-minus" style="color:black"></i></a> <br>
+								<a href="{% url 'cart:cart_remove' i.product.id %}"><i class="fa-solid fa-trash" style="color:black"></i></a>
+							{% else %}
+								<a href="{% url 'cart:cart_decrement' i.product.id %}"><i class="fa-solid fa-circle-minus" style="color:black"></i></a> <br>
+								<a href="{% url 'cart:cart_remove' i.product.id %}"><i class="fa-solid fa-trash" style="color:black"></i></a>
+
+						</td>
+						{% endif %}
+					</tr>
+					{% endfor %}
+				</table>
+			</div>
+		</div>
+		<div class="col-5 ">
+			<div class="container mt-5 pt-5 ">
+				<table class="table table-bordered " style="width:50%;backdrop-filter: blur(8px) ; background-color: rgba(0, 0, 0, 0.1);"           >
+					<tr>
+						<th style="color:white;">CheckOut</th>
+					</tr>
+					<tr>
+						<th style="color:white;">Total Amount : {{total}} </th>
+					</tr>
+				</table>
+<!--				<div class="add-bag d-flex align-items-center">-->
+<!--					<a href="{% url 'cart:placeorder'%}" style="color:red">placeorder </a>-->
+<!--				</div>-->
+<!--				<div class="add-bag d-flex align-items-center">-->
+<!--					<a href="{% url 'shop:home'%}" style="color:red">continue shopping  </a>-->
+<!--				</div>-->
+				<div class="btn_main w-100">
+
+					<div style="backdrop-filter: blur(8px) ; background-color: rgba(0, 0, 0, 0.1);"><a class="btn btn-success " href="{% url 'shop:home'%}" role="button">Continue Shopping</a></div>
+					&nbsp; 	&nbsp;
+					<div style="backdrop-filter: blur(8px)"><a class="btn btn-success " href="{% url 'cart:placeorder' %}" role="button">Place Order</a></div>
+				</div>
+
+
+			</div>
+		</div>
+	</div>
+{% endblock %}

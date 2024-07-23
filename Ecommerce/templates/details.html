@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+
+
+
+<div class="container-fluid">
+  <div class="row mt-3 mb-3 bg-warning">
+
+    <div class="col">
+      <img src="{{p.image.url}}">
+    </div>
+    <div class="col">
+        <h1>{{p.name}}</h1>
+      <h4>{{p.desc}}</h4>
+        <h2>{{p.price}}</h2>
+    </div>
+
+  </div>
+</div>
+{% endblock %}
+
+
+
+
